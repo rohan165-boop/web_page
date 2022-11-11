@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.5
   url_launcher: ^6.1.6
+  carousel_slider: ^4.1.1
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +83,9 @@ flutter:
       fonts:
         - asset: assets/fonts/Montserrat-Bold.ttf
         - asset: assets/fonts/Montserrat-Regular.ttf
+    - family: Electrolize
+      fonts:
+        - asset: assets/fonts/Electrolize-Regular.ttf    
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
