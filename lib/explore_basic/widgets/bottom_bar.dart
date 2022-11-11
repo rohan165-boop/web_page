@@ -46,12 +46,12 @@ class BottomBar extends StatelessWidget {
                 const SizedBox(height: 20),
                 const InfoText(
                   type: 'Email',
-                  text: 'explore@gmail.com',
+                  text: 'rohanchy165@gmail.com',
                 ),
                 const SizedBox(height: 5),
                 const InfoText(
                   type: 'Address',
-                  text: '128, Trymore Road, Delft, MN - 56124',
+                  text: 'Rangeli - 04, Morang Nepal',
                 ),
                 const SizedBox(height: 20),
                 const Divider(
@@ -59,7 +59,7 @@ class BottomBar extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Copyright © 2020 | EXPLORE',
+                  'Copyright © 2020 | @ROHAN',
                   style: TextStyle(
                     color: Colors.blueGrey.shade300,
                     fontSize: 14,
@@ -117,7 +117,7 @@ class BottomBar extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Copyright © 2020 | EXPLORE',
+                  'Copyright © 2020 | @ROHAN',
                   style: TextStyle(
                     color: Colors.blueGrey.shade300,
                     fontSize: 14,

@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
               preferredSize: Size(screenSize.width, 1000),
               child: TopBarContents(_opacity),
             ),
-      drawer: const ExploreDrawer(),
+      drawer: const SafeArea(child: ExploreDrawer()),
       body: SingleChildScrollView(
         controller: _scrollController,
         physics: const ClampingScrollPhysics(),

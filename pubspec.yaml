@@ -39,6 +39,7 @@ dependencies:
   http: ^0.13.5
   url_launcher: ^6.1.6
   carousel_slider: ^4.1.1
+  easy_dynamic_theme: ^2.2.0
 
 dev_dependencies:
   flutter_test:

@@ -16,6 +16,7 @@ class ExploreDrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              const Spacer(),
               InkWell(
                 onTap: () {},
                 child: const Text(
@@ -65,15 +66,16 @@ class ExploreDrawer extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 22),
                 ),
               ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    'Copyright © 2020 | EXPLORE',
-                    style: TextStyle(
-                      color: Colors.blueGrey.shade300,
-                      fontSize: 14,
-                    ),
+              const SizedBox(
+                height: 50,
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  'Copyright © 2020 | EXPLORE',
+                  style: TextStyle(
+                    color: Colors.blueGrey.shade300,
+                    fontSize: 14,
                   ),
                 ),
               )
