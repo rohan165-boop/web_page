@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:webpage/explore_basic/widgets/bottom_bar.dart';
 import 'package:webpage/explore_basic/widgets/carousel.dart';
@@ -10,8 +11,11 @@ import 'package:webpage/explore_basic/widgets/featured_tiles.dart';
 import 'package:webpage/explore_basic/widgets/floating_quick_access.dart';
 import 'package:webpage/explore_basic/widgets/responsive.dart';
 import 'package:webpage/explore_basic/widgets/top_bar_contents.dart';
+import 'package:webpage/explore_basic/widgets/web_scrollbar.dart';
 
 class HomePage extends StatefulWidget {
+  static const String route = '/';
+
   const HomePage({super.key});
 
   @override
@@ -19,7 +23,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final ScrollController _scrollController = ScrollController();
+  late ScrollController _scrollController;
   double _scrollPosition = 0;
   double _opacity = 0;
 
@@ -31,6 +35,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
     super.initState();
   }
@@ -43,15 +48,28 @@ class _HomePageState extends State<HomePage> {
         : 1;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       extendBodyBehindAppBar: true,
       appBar: ResponsiveWidget.isSmallScreen(context)
           ? AppBar(
-              backgroundColor: Colors.blueGrey.shade900.withOpacity(_opacity),
+              backgroundColor:
+                  Theme.of(context).bottomAppBarColor.withOpacity(_opacity),
               elevation: 0,
+              centerTitle: true,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.brightness_6),
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () {
+                    EasyDynamicTheme.of(context).changeTheme();
+                  },
+                ),
+              ],
               title: Text(
                 'EXPLORE',
                 style: TextStyle(
-                  color: Colors.blueGrey.shade100,
+                  color: Colors.blueGrey[100],
                   fontSize: 20,
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.w400,
@@ -63,42 +81,49 @@ class _HomePageState extends State<HomePage> {
               preferredSize: Size(screenSize.width, 1000),
               child: TopBarContents(_opacity),
             ),
-      drawer: const SafeArea(child: ExploreDrawer()),
-      body: SingleChildScrollView(
+      drawer: const ExploreDrawer(),
+      body: WebScrollbar(
+        color: Colors.blueGrey,
+        backgroundColor: Colors.blueGrey.withOpacity(0.3),
+        width: 10,
+        heightFraction: 0.3,
         controller: _scrollController,
-        physics: const ClampingScrollPhysics(),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                SizedBox(
-                  height: screenSize.height * 0.45,
-                  width: screenSize.width,
-                  child: Image.asset(
-                    'assets/image/cover.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Column(
-                  children: [
-                    FloatingQuickAccessBar(screenSize: screenSize),
-                    Column(
-                      children: [
-                        FeaturedHeading(
-                          screenSize: screenSize,
-                        ),
-                        FeaturedTiles(screenSize: screenSize)
-                      ],
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          physics: const ClampingScrollPhysics(),
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  SizedBox(
+                    height: screenSize.height * 0.45,
+                    width: screenSize.width,
+                    child: Image.asset(
+                      'assets/image/cover.jpg',
+                      fit: BoxFit.cover,
                     ),
-                  ],
-                )
-              ],
-            ),
-            DestinationHeading(screenSize: screenSize),
-            const DestinationCarousel(),
-            SizedBox(height: screenSize.height / 10),
-            const BottomBar(),
-          ],
+                  ),
+                  Column(
+                    children: [
+                      FloatingQuickAccessBar(screenSize: screenSize),
+                      Column(
+                        children: [
+                          FeaturedHeading(
+                            screenSize: screenSize,
+                          ),
+                          FeaturedTiles(screenSize: screenSize)
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              DestinationHeading(screenSize: screenSize),
+              const DestinationCarousel(),
+              SizedBox(height: screenSize.height / 10),
+              const BottomBar(),
+            ],
+          ),
         ),
       ),
     );

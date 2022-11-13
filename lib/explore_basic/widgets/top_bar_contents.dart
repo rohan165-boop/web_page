@@ -34,7 +34,7 @@ class _TopBarContentsState extends State<TopBarContents> {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'EXPLORE',
@@ -48,9 +48,8 @@ class _TopBarContentsState extends State<TopBarContents> {
               ),
               Expanded(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SizedBox(width: screenSize.width / 8),
                     InkWell(
                       onHover: (value) {
                         setState(() {
@@ -122,6 +121,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         ],
                       ),
                     ),
+                    SizedBox(width: screenSize.width / 50),
                   ],
                 ),
               ),

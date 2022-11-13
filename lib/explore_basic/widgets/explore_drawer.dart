@@ -1,54 +1,153 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: library_private_types_in_public_api
 
-class ExploreDrawer extends StatelessWidget {
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:webpage/explore_basic/screens/home_page.dart';
+import 'package:webpage/explore_basic/utils/authentication.dart';
+import 'package:webpage/explore_basic/widgets/auth_dialog.dart';
+
+class ExploreDrawer extends StatefulWidget {
   const ExploreDrawer({
     Key? key,
   }) : super(key: key);
 
   @override
+  _ExploreDrawerState createState() => _ExploreDrawerState();
+}
+
+class _ExploreDrawerState extends State<ExploreDrawer> {
+  bool _isProcessing = false;
+  @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: Colors.blueGrey.shade900,
+        color: Theme.of(context).bottomAppBarColor,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Text(
-                'EXPLORE',
-                style: TextStyle(color: Colors.white, fontSize: 22),
-              ),
-              const Spacer(),
-              InkWell(
-                onTap: () {},
-                child: const Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 22),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                child: Divider(
-                  color: Colors.blueGrey.shade400,
-                  thickness: 2,
-                ),
-              ),
-              InkWell(
-                onTap: () {},
-                child: const Text(
-                  'Sign Up',
-                  style: TextStyle(color: Colors.white, fontSize: 22),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                child: Divider(
-                  color: Colors.blueGrey.shade400,
-                  thickness: 2,
-                ),
-              ),
+              userEmail == null
+                  ? SizedBox(
+                      width: double.maxFinite,
+                      child: TextButton(
+                        // color: Colors.black,
+                        // hoverColor: Colors.blueGrey[800],
+                        // highlightColor: Colors.blueGrey[700],
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const AuthDialog(),
+                          );
+                        },
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: BorderRadius.circular(15),
+                        // ),
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                            top: 15.0,
+                            bottom: 15.0,
+                          ),
+                          child: Text(
+                            'Sign in',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        CircleAvatar(
+                          radius: 20,
+                          backgroundImage:
+                              imageUrl != null ? NetworkImage(imageUrl!) : null,
+                          child: imageUrl == null
+                              ? const Icon(
+                                  Icons.account_circle,
+                                  size: 40,
+                                )
+                              : Container(),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          name ?? userEmail!,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white70,
+                          ),
+                        )
+                      ],
+                    ),
+              const SizedBox(height: 20),
+              userEmail != null
+                  ? SizedBox(
+                      width: double.maxFinite,
+                      child: TextButton(
+                        // color: Colors.black,
+                        // hoverColor: Colors.blueGrey[800],
+                        // highlightColor: Colors.blueGrey[700],
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        onPressed: _isProcessing
+                            ? null
+                            : () async {
+                                setState(() {
+                                  _isProcessing = true;
+                                });
+                                await signOut().then((result) {
+                                  log(result);
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      fullscreenDialog: true,
+                                      builder: (context) => const HomePage(),
+                                    ),
+                                  );
+                                }).catchError((error) {
+                                  log('Sign Out Error: $error');
+                                });
+                                setState(() {
+                                  _isProcessing = false;
+                                });
+                              },
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: BorderRadius.circular(15),
+                        // ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 15.0,
+                            bottom: 15.0,
+                          ),
+                          child: _isProcessing
+                              ? const CircularProgressIndicator()
+                              : const Text(
+                                  'Sign out',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                        ),
+                      ),
+                    )
+                  : Container(),
+              userEmail != null ? const SizedBox(height: 20) : Container(),
               InkWell(
                 onTap: () {},
                 child: const Text(
@@ -59,7 +158,7 @@ class ExploreDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                 child: Divider(
-                  color: Colors.blueGrey.shade400,
+                  color: Colors.blueGrey[400],
                   thickness: 2,
                 ),
               ),
@@ -70,16 +169,15 @@ class ExploreDrawer extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 22),
                 ),
               ),
-              const SizedBox(
-                height: 50,
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  'Copyright © 2020 | @ROHAN',
-                  style: TextStyle(
-                    color: Colors.blueGrey.shade300,
-                    fontSize: 14,
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    'Copyright © 2020 | EXPLORE',
+                    style: TextStyle(
+                      color: Colors.blueGrey[300],
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               )
