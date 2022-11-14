@@ -2,6 +2,7 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:webpage/explore_basic/constants/image_constants.dart';
 import 'package:webpage/explore_basic/widgets/responsive.dart';
 
 class DestinationCarousel extends StatefulWidget {
@@ -12,7 +13,7 @@ class DestinationCarousel extends StatefulWidget {
 }
 
 class _DestinationCarouselState extends State<DestinationCarousel> {
-  final String imagePath = 'assets/image/';
+  // final String imagePath = 'assets/image/';
 
   final CarouselController _controller = CarouselController();
 
@@ -20,15 +21,6 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
   final List _isSelected = [true, false, false, false, false, false, false];
 
   int _current = 0;
-
-  final List<String> images = [
-    'assets/image/asia.jpg',
-    'assets/image/africa.jpg',
-    'assets/image/europe.jpg',
-    'assets/image/south_america.jpg',
-    'assets/image/australia.jpg',
-    'assets/image/antarctica.jpg',
-  ];
 
   final List<String> places = [
     'ASIA',
@@ -40,7 +32,7 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
   ];
 
   List<Widget> generateImageTiles(screenSize) {
-    return images
+    return ImageConstants.images
         .map(
           (element) => ClipRRect(
             borderRadius: BorderRadius.circular(8.0),

@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:webpage/explore_basic/constants/image_constants.dart';
 import 'package:webpage/explore_basic/screens/home_page.dart';
 import 'package:webpage/explore_basic/utils/authentication.dart';
 
@@ -70,7 +71,7 @@ class _GoogleButtonState extends State<GoogleButton> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const <Widget>[
                     Image(
-                      image: AssetImage("assets/image/google_logo.png"),
+                      image: AssetImage(ImageConstants.google),
                       height: 30.0,
                     ),
                     Padding(

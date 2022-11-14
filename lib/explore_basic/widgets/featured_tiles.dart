@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webpage/explore_basic/constants/image_constants.dart';
 import 'package:webpage/explore_basic/widgets/responsive.dart';
 
 class FeaturedTiles extends StatelessWidget {
@@ -8,12 +9,6 @@ class FeaturedTiles extends StatelessWidget {
   }) : super(key: key);
 
   final Size screenSize;
-
-  final List<String> assets = [
-    'assets/image/trekking.jpg',
-    'assets/image/animals.jpg',
-    'assets/image/photography.jpeg',
-  ];
 
   final List<String> title = ['Trekking', 'Animals', 'Photography'];
 
@@ -28,7 +23,7 @@ class FeaturedTiles extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(width: screenSize.width / 15),
-                  ...Iterable<int>.generate(assets.length).map(
+                  ...Iterable<int>.generate(ImageConstants.assets.length).map(
                     (int pageIndex) => Row(
                       children: [
                         Column(
@@ -40,7 +35,7 @@ class FeaturedTiles extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5.0),
                                 child: Image.asset(
-                                  assets[pageIndex],
+                                  ImageConstants.assets[pageIndex],
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -77,7 +72,7 @@ class FeaturedTiles extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ...Iterable<int>.generate(assets.length).map(
+                ...Iterable<int>.generate(ImageConstants.assets.length).map(
                   (int pageIndex) => Column(
                     children: [
                       SizedBox(
@@ -86,7 +81,7 @@ class FeaturedTiles extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5.0),
                           child: Image.asset(
-                            assets[pageIndex],
+                            ImageConstants.assets[pageIndex],
                             fit: BoxFit.cover,
                           ),
                         ),

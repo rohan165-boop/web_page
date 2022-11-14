@@ -2,6 +2,7 @@
 
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:webpage/explore_basic/constants/image_constants.dart';
 import 'package:webpage/explore_basic/widgets/bottom_bar.dart';
 import 'package:webpage/explore_basic/widgets/carousel.dart';
 import 'package:webpage/explore_basic/widgets/destination_heading.dart';
@@ -99,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                     height: screenSize.height * 0.45,
                     width: screenSize.width,
                     child: Image.asset(
-                      'assets/image/cover.jpg',
+                      ImageConstants.cover,
                       fit: BoxFit.cover,
                     ),
                   ),
